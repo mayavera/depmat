@@ -4,7 +4,8 @@
   "description": "Node dependency matrix generator",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "lint": "eslint . --ext ts --cache"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,11 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^11.13.4",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
     "ts-node": "^8.0.3",
     "typescript": "^3.4.3"
   }

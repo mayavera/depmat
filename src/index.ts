@@ -3,6 +3,11 @@
 import fs from 'fs';
 import path from 'path';
 
+if (process.argv.includes('-h')) {
+    console.log('Usage: depmat <projectRoot>');
+    process.exit();
+}
+
 const packPath = process.argv.length > 2 ? process.argv[2] : '';
 
 const packJSON = fs.readFileSync(path.join(packPath, 'package.json'), 'utf-8');

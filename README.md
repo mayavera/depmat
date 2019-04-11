@@ -17,7 +17,7 @@ cd <path to my awesome project>
 depmat
 ```
 
-Or, if you may specify your project's root path as the first argument:
+Or, you may specify your project's root path as the first argument:
 
 ```sh
 depmat <path to my awesome project>

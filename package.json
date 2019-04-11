@@ -4,7 +4,7 @@
   "description": "Node dependency matrix generator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/mayavera/depmat/issues"
   },
-  "homepage": "https://github.com/mayavera/depmat#readme"
+  "homepage": "https://github.com/mayavera/depmat#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^11.13.4",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.4.3"
+  }
 }

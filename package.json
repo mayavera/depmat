@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "watch": "nodemon --watch src --ext ts --exec 'npm start'",
-    "lint": "eslint . --ext ts --cache"
+    "lint": "eslint . --ext ts --cache",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

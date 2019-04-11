@@ -6,6 +6,9 @@
   "bin": {
     "depmat": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "ts-node src/index.ts",
     "watch": "nodemon --watch src --ext ts --exec 'npm start'",

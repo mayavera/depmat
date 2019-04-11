@@ -2,12 +2,15 @@
   "name": "depmat",
   "version": "0.1.0",
   "description": "Node dependency matrix generator",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "depmat": "./dist/index.js"
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
     "watch": "nodemon --watch src --ext ts --exec 'npm start'",
     "lint": "eslint . --ext ts --cache",
-    "build": "tsc",
+    "build": "tsc && chmod +x dist/index.js",
     "clean": "rm -rf dist",
     "rebuild": "npm run clean && npm run build"
   },

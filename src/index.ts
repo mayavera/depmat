@@ -3,12 +3,37 @@
 import fs from 'fs';
 import path from 'path';
 
-if (process.argv.includes('-h')) {
+const args = [...process.argv];
+
+if (args.includes('-h')) {
     console.log('Usage: depmat <projectRoot>');
     process.exit();
 }
 
-const packPath = process.argv.length > 2 ? process.argv[2] : '';
+let format = 'csv';
+if (args.includes('--format')) {
+    const formatFlagIndex = args.indexOf('--format');
+
+    if (args.length <= formatFlagIndex + 1) {
+        console.log('no format specified!');
+        process.exit(1);
+    }
+
+    format = args[formatFlagIndex + 1];
+
+    switch (format) {
+        case 'md':
+        case 'csv':
+            break;
+        default:
+            console.log('unknown format specified');
+            process.exit(1);
+    }
+
+    args.splice(formatFlagIndex, 2);
+}
+
+const packPath = args.length > 2 ? args[2] : '';
 
 const packJSON = fs.readFileSync(path.join(packPath, 'package.json'), 'utf-8');
 const pack = JSON.parse(packJSON);
@@ -32,22 +57,50 @@ deps.unshift({
     dependencies: { ...pack.dependencies, ...pack.devDependencies },
 });
 
-console.log(`dependency,${deps.map(dep => dep.name).join(',')}`);
+switch (format) {
+    case 'csv':
+        console.log(`dependency,${deps.map(dep => dep.name).join(',')}`);
 
-deps.forEach((rowDep) => {
-    const line = [rowDep.name];
+        deps.forEach((rowDep) => {
+            const line = [rowDep.name];
 
-    deps.forEach((colDep) => {
-        if (rowDep.name === colDep.name) {
-            line.push(rowDep.version);
-        } else if (rowDep.dependencies[colDep.name]) {
-            line.push(rowDep.dependencies[colDep.name]);
-        } else if (colDep.dependencies[rowDep.name]) {
-            line.push(colDep.dependencies[rowDep.name]);
-        } else {
-            line.push(' ');
-        }
-    });
+            deps.forEach((colDep) => {
+                if (rowDep.name === colDep.name) {
+                    line.push(rowDep.version);
+                } else if (rowDep.dependencies[colDep.name]) {
+                    line.push(rowDep.dependencies[colDep.name]);
+                } else if (colDep.dependencies[rowDep.name]) {
+                    line.push(colDep.dependencies[rowDep.name]);
+                } else {
+                    line.push(' ');
+                }
+            });
 
-    console.log(line.join(','));
-});
+            console.log(line.join(','));
+        });
+        break;
+    case 'md':
+        console.log(`|dependency|${deps.map(dep => dep.name).join('|')}|`);
+        console.log(`|-|${deps.map(() => '-').join('|')}|`);
+
+        deps.forEach((rowDep) => {
+            const line = [rowDep.name];
+
+            deps.forEach((colDep) => {
+                if (rowDep.name === colDep.name) {
+                    line.push(rowDep.version);
+                } else if (rowDep.dependencies[colDep.name]) {
+                    line.push(rowDep.dependencies[colDep.name]);
+                } else if (colDep.dependencies[rowDep.name]) {
+                    line.push(colDep.dependencies[rowDep.name]);
+                } else {
+                    line.push(' ');
+                }
+            });
+
+            console.log(`|${line.join('|')}|`);
+        });
+
+        break;
+    default:
+}

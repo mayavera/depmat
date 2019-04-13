@@ -31,6 +31,6 @@ depmat > dm.csv
 
 > ️️⚠️ `depmat` will look for a `package-lock.json`, so be sure to run `npm install`
 
-# License
+## License
 
 [MIT](https://mit-license.org)

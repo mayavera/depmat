@@ -11,8 +11,11 @@ if (args.includes('-h') || args.includes('--help')) {
 }
 
 let format = 'csv';
-if (args.includes('--format')) {
-    const formatFlagIndex = args.indexOf('--format');
+if (args.includes('-f') || args.includes('--format')) {
+    let formatFlagIndex = args.indexOf('-f');
+    if (formatFlagIndex === -1) {
+        formatFlagIndex = args.indexOf('--format');
+    }
 
     if (args.length <= formatFlagIndex + 1) {
         console.log('no format specified!');

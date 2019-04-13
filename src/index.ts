@@ -5,7 +5,7 @@ import path from 'path';
 
 const args = [...process.argv];
 
-if (args.includes('-h')) {
+if (args.includes('-h') || args.includes('--help')) {
     console.log('Usage: depmat [--format <format>] <projectRoot>');
     process.exit();
 }

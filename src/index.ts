@@ -6,7 +6,7 @@ import path from 'path';
 const args = [...process.argv];
 
 if (args.includes('-h')) {
-    console.log('Usage: depmat <projectRoot>');
+    console.log('Usage: depmat [--format <format>] <projectRoot>');
     process.exit();
 }
 
